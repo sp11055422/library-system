@@ -72,8 +72,7 @@ class Reservation(models.Model):
         # 3. 呼叫原本內建的 save，把資料正式存進資料庫
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return f"{self.date} {self.teacher_name} - {self.assigned_cart}"
+    
     
     
     
