@@ -14,9 +14,12 @@ class devicecars(models.Model):
    category = models.CharField(max_length=20, choices=category)
    priority = models.IntegerField(default=1)  # 優先順序，數字愈小愈先分配 (例如 B=1, D=2, F=3)  
    open_use = models.BooleanField(default=True) # 是否開放使用 (M車可以設為 False)
-
    def __str__(self):
-        return self.car_name # 是否開放使用 (M車可以設為 False)
+     return self.car_name
+
+
+   
+
    
 class Reservation(models.Model):
 
@@ -48,7 +51,7 @@ class Reservation(models.Model):
             period=self.period
         ).values_list('assigned_cart', flat=True)
         
-        candidate_carts = available_carts.exclude(id__in=booked_cart_ids)
+        candidate_carts = available_carts.exclude(another_id=booked_cart_ids)
 
         for cart in candidate_carts:
             # 3. 如果你有寫人數限制，記得檢查規則
@@ -59,7 +62,7 @@ class Reservation(models.Model):
     
     def save(self, *args, **kwargs):
         # 1. 修正大小寫問題 (避免 ipad 找不到 IPAD)
-        if self.device_type:
+        if self.device_type: #如果這張預約單上面有填寫設備類型（不是空的）。
             self.device_type = self.device_type.upper()
             
         # 2. 如果這筆預約還沒分配車位，就啟動自動分配
@@ -71,6 +74,8 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"{self.date} {self.teacher_name} - {self.assigned_cart}"
+    
+    
     
     
     
