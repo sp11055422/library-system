@@ -34,7 +34,7 @@ class Reservation(models.Model):
     class_size = models.IntegerField()
     date = models.DateField()
     period = models.CharField(max_length=10, choices=periods)
-    device_type = models.CharField(max_length=20)
+    device_type= models.CharField(max_length=20)
     assigned_cart = models.ForeignKey(devicecars,on_delete=models.SET_NULL, null=True, blank=True)
     sign_time = models.DateTimeField(auto_now_add=True)# 建立時間，用來判斷「先到先得」
 
@@ -51,7 +51,7 @@ class Reservation(models.Model):
             period=self.period
         ).values_list('assigned_cart', flat=True)
         
-        candidate_carts = available_carts.exclude(another_id=booked_cart_ids)
+        candidate_carts = available_carts.exclude(id__in=booked_cart_ids)
 
         for cart in candidate_carts:
             # 3. 如果你有寫人數限制，記得檢查規則
