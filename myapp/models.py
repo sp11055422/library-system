@@ -12,8 +12,8 @@ class devicecars(models.Model):
 
    car_name = models.CharField(max_length=50)
    category = models.CharField(max_length=20, choices=category)
-   priority = models.IntegerField(default=1)  # 優先順序，數字愈小愈先分配 (例如 B=1, D=2, F=3)  
-   open_use = models.BooleanField(default=True) # 是否開放使用 (M車可以設為 False)
+   priority = models.IntegerField(default=1)  # 優先順序 
+   open_use = models.BooleanField(default=True) # 是否開放使用 
    def __str__(self):
      return self.car_name
 
