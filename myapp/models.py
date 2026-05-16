@@ -60,7 +60,7 @@ class Reservation(models.Model):
     
     def save(self, *args, **kwargs):
         # 大小寫問題 
-        if self.device_type: #如果這張預約單上面有填寫設備類型（不是空的）。
+        if self.device_type: 
             self.device_type = self.device_type.upper()
             
         # 自動分配
